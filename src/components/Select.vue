@@ -11,8 +11,8 @@
             <td>{{ user.name }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
-            <td><button type="button" on>Edit</button> </td>
-            <td><button type="button">Delete</button> </td>
+            <td><button type="button">Edit</button> </td>
+            <td><button type="button" v-on:click="deluser(user.id)">Delete</button> </td>
         </tr>
     </table>    
 </template>
@@ -28,16 +28,25 @@ export default {
             users:null
         }
     },
+    methods:{
+        deluser: function(id){
+            console.log('delete id',id);
+            Vue.axios.delete('http://localhost:3000/users/'+id).then(() => {
+                this.fetchUser(); 
+            });
+        },
+        fetchUser: function(){
+            Vue.axios.get('http://localhost:3000/users').then((res) => {
+                this.users = res.data;
+            });
+        },
+    },
     mounted(){
-        Vue.axios.get('http://localhost:3000/users').then((res) => {
-            this.users = res.data;
-            // return res.data;
-            console.log(res);
-        });
+     this.fetchUser();   
     }
 }
 </script>
-<style>
+<style scoped>
     table{
         width:800px;
         margin:auto;
