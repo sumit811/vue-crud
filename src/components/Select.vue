@@ -1,5 +1,5 @@
 <template>
-    <table cellpading="5" ceillspacing="5" border="1">
+    <table cellpadding="5" cellspacing="5" border="1">
         <tr>
             <th>Name</th>
             <th>Username</th>
@@ -11,7 +11,7 @@
             <td>{{ user.name }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
-            <td><button type="button">Edit</button> </td>
+            <td><router-link :to="{ path: 'edit/'+user.id}">Edit</router-link></td>
             <td><button type="button" v-on:click="deluser(user.id)">Delete</button> </td>
         </tr>
     </table>    
@@ -46,7 +46,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
     table{
         width:800px;
         margin:auto;
